@@ -23,3 +23,20 @@ export const findapplicationById = async (id: number): Promise<Application | nul
     const { rows } = await query('SELECT * FROM applications WHERE id = $1', [id]);
     return rows[0] || null;
 }
+
+//update application by id
+export const updateapplication = async (id: number, appdata: Partial<NewApplication>): Promise<Application | null> => {
+    const {status}=appdata;
+    const { rows } = await query(
+        'UPDATE applications SET status = $1 WHERE id = $2 RETURNING *',
+        [status, id]
+    );
+    return rows[0] || null;
+}
+
+//delete application by id
+export const deleteapplication = async (id: number): Promise<Application | null> => {
+    const { rows } = await query('DELETE FROM applications WHERE id = $1', [id]);
+    return rows[0] || null;
+}
+    
