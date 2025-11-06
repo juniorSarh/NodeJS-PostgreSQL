@@ -8,8 +8,11 @@ import {
 } from "../controllers/applicationcontrollers";
                                                                 
 import { get } from "http";
+import { protect } from "../middleware/authMiddleware";
 
 const router = Router();
+
+router.use(protect);
 
 router.post('/applications', addapplication);
 router.get('/applications', getallapplications);

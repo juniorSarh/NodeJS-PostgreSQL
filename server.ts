@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { testConnection } from './src/config/database';
 import applicationRoutes from './src/routes/applicationRoutes'; 
+import authRoutes from './src/routes/applicationRoutes';
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 const sartServer = async () => {
     await testConnection();
     app.use(express.json());
+    app.use("/api/auth", authRoutes);
     app.use('/api', applicationRoutes);    
 
     app.listen(PORT, () => {
